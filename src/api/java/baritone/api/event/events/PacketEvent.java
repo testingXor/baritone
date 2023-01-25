@@ -39,20 +39,20 @@ public final class PacketEvent {
         this.packet = packet;
     }
 
-    public final NetworkManager getNetworkManager() {
+    public NetworkManager getNetworkManager() {
         return this.networkManager;
     }
 
-    public final EventState getState() {
+    public EventState getState() {
         return this.state;
     }
 
-    public final Packet<?> getPacket() {
+    public Packet<?> getPacket() {
         return this.packet;
     }
 
     @SuppressWarnings("unchecked")
-    public final <T extends Packet<?>> T cast() {
+    public <T extends Packet<?>> T cast() {
         return (T) this.packet;
     }
 }
