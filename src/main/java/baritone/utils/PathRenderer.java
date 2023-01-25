@@ -58,7 +58,7 @@ public final class PathRenderer implements IRenderer {
             ((GuiClick) Helper.mc.currentScreen).onRender();
         }
 
-        int thisPlayerDimension = behavior.baritone.getPlayerContext().world().provider.getDimensionType().getId();
+        int thisPlayerDimension = behavior.getBaritone().getPlayerContext().world().provider.getDimensionType().getId();
         int currentRenderViewDimension = BaritoneAPI.getProvider().getPrimaryBaritone().getPlayerContext().world().provider.getDimensionType().getId();
 
         if (thisPlayerDimension != currentRenderViewDimension) {

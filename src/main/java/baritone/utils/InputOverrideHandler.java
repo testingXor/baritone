@@ -114,7 +114,7 @@ public final class InputOverrideHandler extends Behavior implements IInputOverri
             }
         }
         // if we are not primary (a bot) we should set the movementinput even when idle (not pathing)
-        return baritone.getPathingBehavior().isPathing() || baritone != BaritoneAPI.getProvider().getPrimaryBaritone();
+        return getBaritone().getPathingBehavior().isPathing() || getBaritone() != BaritoneAPI.getProvider().getPrimaryBaritone();
     }
 
     public BlockBreakHelper getBlockBreakHelper() {

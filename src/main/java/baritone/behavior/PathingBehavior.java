@@ -87,7 +87,7 @@ public final class PathingBehavior extends Behavior implements IPathingBehavior,
         toDispatch.drainTo(curr);
         calcFailedLastTick = curr.contains(PathEvent.CALC_FAILED);
         for (PathEvent event : curr) {
-            baritone.getGameEventHandler().onPathEvent(event);
+            getBaritone().getGameEventHandler().onPathEvent(event);
         }
     }
 
@@ -96,12 +96,12 @@ public final class PathingBehavior extends Behavior implements IPathingBehavior,
         dispatchEvents();
         if (event.getType() == TickEvent.Type.OUT) {
             secretInternalSegmentCancel();
-            baritone.getPathingControlManager().cancelEverything();
+            getBaritone().getPathingControlManager().cancelEverything();
             return;
         }
 
         expectedSegmentStart = pathStart();
-        baritone.getPathingControlManager().preTick();
+        getBaritone().getPathingControlManager().preTick();
         tickPath();
         ticksElapsedSoFar++;
         dispatchEvents();
@@ -119,8 +119,8 @@ public final class PathingBehavior extends Behavior implements IPathingBehavior,
         if (pauseRequestedLastTick && safeToCancel) {
             pauseRequestedLastTick = false;
             if (unpausedLastTick) {
-                baritone.getInputOverrideHandler().clearAllKeys();
-                baritone.getInputOverrideHandler().getBlockBreakHelper().stopBreakingBlock();
+                getBaritone().getInputOverrideHandler().clearAllKeys();
+                getBaritone().getInputOverrideHandler().getBlockBreakHelper().stopBreakingBlock();
             }
             unpausedLastTick = false;
             pausedThisTick = true;
@@ -129,7 +129,7 @@ public final class PathingBehavior extends Behavior implements IPathingBehavior,
         unpausedLastTick = true;
         if (cancelRequested) {
             cancelRequested = false;
-            baritone.getInputOverrideHandler().clearAllKeys();
+            getBaritone().getInputOverrideHandler().clearAllKeys();
         }
         synchronized (pathPlanLock) {
             synchronized (pathCalcLock) {
@@ -260,7 +260,7 @@ public final class PathingBehavior extends Behavior implements IPathingBehavior,
         if (command instanceof PathingCommandContext) {
             context = ((PathingCommandContext) command).desiredCalcContext;
         } else {
-            context = new CalculationContext(baritone, true);
+            context = new CalculationContext(getBaritone(), true);
         }
         if (goal == null) {
             return false;
@@ -330,7 +330,7 @@ public final class PathingBehavior extends Behavior implements IPathingBehavior,
         if (doIt) {
             secretInternalSegmentCancel();
         }
-        baritone.getPathingControlManager().cancelEverything(); // regardless of if we can stop the current segment, we can still stop the processes
+        getBaritone().getPathingControlManager().cancelEverything(); // regardless of if we can stop the current segment, we can still stop the processes
         return doIt;
     }
 
@@ -359,8 +359,8 @@ public final class PathingBehavior extends Behavior implements IPathingBehavior,
             if (current != null) {
                 current = null;
                 next = null;
-                baritone.getInputOverrideHandler().clearAllKeys();
-                baritone.getInputOverrideHandler().getBlockBreakHelper().stopBreakingBlock();
+                getBaritone().getInputOverrideHandler().clearAllKeys();
+                getBaritone().getInputOverrideHandler().getBlockBreakHelper().stopBreakingBlock();
             }
         }
     }

@@ -29,7 +29,7 @@ import baritone.api.utils.IPlayerContext;
  */
 public class Behavior implements IBehavior {
 
-    public final Baritone baritone;
+    private final Baritone baritone;
     public final IPlayerContext ctx;
 
     protected Behavior(Baritone baritone) {
@@ -37,4 +37,8 @@ public class Behavior implements IBehavior {
         this.ctx = baritone.getPlayerContext();
         baritone.registerBehavior(this);
     }
+
+	public final Baritone getBaritone() {
+		return baritone;
+	}
 }

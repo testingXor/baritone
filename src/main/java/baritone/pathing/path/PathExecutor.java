@@ -186,7 +186,7 @@ public class PathExecutor implements IPathExecutor, Helper {
         }*/
         if (pathPosition < path.movements().size() - 1) {
             IMovement next = path.movements().get(pathPosition + 1);
-            if (!behavior.baritone.bsi.worldContainsLoadedChunk(next.getDest().x, next.getDest().z)) {
+            if (!behavior.getBaritone().bsi.worldContainsLoadedChunk(next.getDest().x, next.getDest().z)) {
                 logDebug("Pausing since destination is at edge of loaded chunks");
                 clearKeys();
                 return true;
@@ -344,13 +344,13 @@ public class PathExecutor implements IPathExecutor, Helper {
     }
 
     private boolean shouldSprintNextTick() {
-        boolean requested = behavior.baritone.getInputOverrideHandler().isInputForcedDown(Input.SPRINT);
+        boolean requested = behavior.getBaritone().getInputOverrideHandler().isInputForcedDown(Input.SPRINT);
 
         // we'll take it from here, no need for minecraft to see we're holding down control and sprint for us
-        behavior.baritone.getInputOverrideHandler().setInputForceState(Input.SPRINT, false);
+        behavior.getBaritone().getInputOverrideHandler().setInputForceState(Input.SPRINT, false);
 
         // first and foremost, if allowSprint is off, or if we don't have enough hunger, don't try and sprint
-        if (!new CalculationContext(behavior.baritone, false).canSprint) {
+        if (!new CalculationContext(behavior.getBaritone(), false).canSprint) {
             return false;
         }
         IMovement current = path.movements().get(pathPosition);
@@ -564,12 +564,12 @@ public class PathExecutor implements IPathExecutor, Helper {
 
     private void clearKeys() {
         // i'm just sick and tired of this snippet being everywhere lol
-        behavior.baritone.getInputOverrideHandler().clearAllKeys();
+        behavior.getBaritone().getInputOverrideHandler().clearAllKeys();
     }
 
     private void cancel() {
         clearKeys();
-        behavior.baritone.getInputOverrideHandler().getBlockBreakHelper().stopBreakingBlock();
+        behavior.getBaritone().getInputOverrideHandler().getBlockBreakHelper().stopBreakingBlock();
         pathPosition = path.length() + 3;
         failed = true;
     }
