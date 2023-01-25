@@ -60,11 +60,11 @@ class LinkedListOpenSet implements IOpenSet {
             return n.val;
         }
         Node previous = first;
-        double bestValue = first.val.combinedCost;
+        double bestValue = first.val.getCombinedCost();
         Node bestNode = first;
         Node beforeBest = null;
         while (current != null) {
-            double comp = current.val.combinedCost;
+            double comp = current.val.getCombinedCost();
             if (comp < bestValue) {
                 bestValue = comp;
                 bestNode = current;
