@@ -198,7 +198,28 @@ public final class CachedChunk {
     }
 
     private PathingBlockType getType(int index) {
-        return PathingBlockType.fromBits(data.get(index), data.get(index + 1));
+        
+		/* ********OpenRefactory Warning********
+		 Possible null pointer dereference!
+		 Path: 
+			File: BuilderProcess.java, Line: 1002
+				bsi.get0(x,y,z)
+				 Information about field data (from class CachedChunk) is passed through the method call. This later results into a null pointer dereference
+				The expression is enclosed inside an If statement.
+			File: BlockStateInterface.java, Line: 142
+				IBlockState type=cached.getBlock(x & 511,y,z & 511);
+				 Information about field data (from class CachedChunk) is passed through the method call. This later results into a null pointer dereference
+			File: CachedRegion.java, Line: 81
+				return chunk.getBlock(x & 15,y,z & 15,dimension);
+				 Information about field data (from class CachedChunk) is passed through the method call. This later results into a null pointer dereference
+			File: CachedChunk.java, Line: 166
+				PathingBlockType type=getType(index);
+				 Information about field data (from class CachedChunk) is passed through the method call. This later results into a null pointer dereference
+			File: CachedChunk.java, Line: 201
+				return PathingBlockType.fromBits(data.get(index),data.get(index + 1));
+				data is referenced in method invocation.
+		*/
+		return PathingBlockType.fromBits(data.get(index), data.get(index + 1));
     }
 
     private void calculateHeightMap() {
