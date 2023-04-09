@@ -250,7 +250,22 @@ public final class CachedWorld implements ICachedWorld, Helper {
 
     @Override
     public final synchronized CachedRegion getRegion(int regionX, int regionZ) {
-        return cachedRegions.get(getRegionID(regionX, regionZ));
+        
+		/* ********OpenRefactory Warning********
+		 Possible null pointer dereference!
+		 Path: 
+			File: BuilderProcess.java, Line: 1002
+				bsi.get0(x,y,z)
+				 Information about field cachedRegions (from class CachedWorld) is passed through the method call. This later results into a null pointer dereference
+				The expression is enclosed inside an If statement.
+			File: BlockStateInterface.java, Line: 135
+				CachedRegion region=worldData.cache.getRegion(x >> 9,z >> 9);
+				 Information about field cachedRegions (from class CachedWorld) is passed through the method call. This later results into a null pointer dereference
+			File: CachedWorld.java, Line: 253
+				return cachedRegions.get(getRegionID(regionX,regionZ));
+				cachedRegions is referenced in method invocation.
+		*/
+		return cachedRegions.get(getRegionID(regionX, regionZ));
     }
 
     /**
