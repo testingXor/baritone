@@ -91,7 +91,25 @@ public final class InventoryBehavior extends Behavior {
     }
 
     private void swapWithHotBar(int inInventory, int inHotbar) {
-        ctx.playerController().windowClick(ctx.player().inventoryContainer.windowId, inInventory < 9 ? inInventory + 36 : inInventory, inHotbar, ClickType.SWAP, ctx.player());
+        
+		/* ********OpenRefactory Warning********
+		 Possible null pointer dereference!
+		 Path: 
+			File: InventoryBehavior.java, Line: 144
+				throwaway(select,stack -> stack.getItem() instanceof ItemBlock && ((ItemBlock)stack.getItem()).getBlock().equals(maybe.getBlock()))
+				 Information about field ctx (from class Behavior) is passed through the method call. This later results into a null pointer dereference
+				The expression is enclosed inside an If statement.
+			File: InventoryBehavior.java, Line: 156
+				return throwaway(select,desired,Baritone.settings().allowInventory.value);
+				 Information about field ctx (from class Behavior) is passed through the method call. This later results into a null pointer dereference
+			File: InventoryBehavior.java, Line: 196
+				swapWithHotBar(i,7);
+				 Information about field ctx (from class Behavior) is passed through the method call. This later results into a null pointer dereference
+			File: InventoryBehavior.java, Line: 94
+				ctx.playerController().windowClick(ctx.player().inventoryContainer.windowId,inInventory < 9 ? inInventory + 36 : inInventory,inHotbar,ClickType.SWAP,ctx.player());
+				ctx is referenced in method invocation.
+		*/
+		ctx.playerController().windowClick(ctx.player().inventoryContainer.windowId, inInventory < 9 ? inInventory + 36 : inInventory, inHotbar, ClickType.SWAP, ctx.player());
     }
 
     private int firstValidThrowaway() { // TODO offhand idk
