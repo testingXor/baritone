@@ -18,7 +18,7 @@ env:
 
 jobs:
   OR_JOB:
-    runs-on: ubuntu-18.04 # Or you can use ubuntu-latest
+    runs-on: ubuntu-latest # Or you can use ubuntu-latest
     # If you are using GitHub Enterprise, please substitute <self-hosted> with your Enterprise runner name
     #runs-on: <self-hosted>
     container:
