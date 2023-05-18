@@ -957,7 +957,21 @@ public final class BuilderProcess extends BaritoneProcessHelper implements IBuil
                 return COST_INF;
             }
             IBlockState sch = getSchematic(x, y, z, current);
-            if (sch != null && !Baritone.settings().buildSkipBlocks.value.contains(sch.getBlock())) {
+            /* ********OpenRefactory Warning********
+			 Possible null pointer dereference!
+			 Path: 
+				File: BuilderProcess.java, Line: 959
+					IBlockState sch=getSchematic(x,y,z,current);
+			
+				File: BuilderProcess.java, Line: 960
+					sch != null
+					sch is in a test expression.
+				File: BuilderProcess.java, Line: 960
+					sch.getBlock()
+					sch is referenced in method invocation.
+					The expression is enclosed inside an If statement.
+			*/
+			if (sch != null && !Baritone.settings().buildSkipBlocks.value.contains(sch.getBlock())) {
                 // TODO this can return true even when allowPlace is off.... is that an issue?
                 if (sch.getBlock() == Blocks.AIR) {
                     // we want this to be air, but they're asking if they can place here
