@@ -50,7 +50,7 @@ public final class PathNode {
      * Should always be equal to estimatedCosttoGoal + cost
      * Mutable and changed by PathFinder
      */
-    public double combinedCost;
+    private double combinedCost;
 
     /**
      * In the graph search, what previous node contributed to the cost
@@ -104,4 +104,12 @@ public final class PathNode {
 
         return x == other.x && y == other.y && z == other.z;
     }
+
+	public double getCombinedCost() {
+		return combinedCost;
+	}
+
+	public void setCombinedCost(double combinedCost) {
+		this.combinedCost = combinedCost;
+	}
 }

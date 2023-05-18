@@ -51,7 +51,7 @@ public final class AStarPathFinder extends AbstractNodeCostSearch {
     protected Optional<IPath> calculate0(long primaryTimeout, long failureTimeout) {
         startNode = getNodeAtPosition(startX, startY, startZ, BetterBlockPos.longHash(startX, startY, startZ));
         startNode.cost = 0;
-        startNode.combinedCost = startNode.estimatedCostToGoal;
+        startNode.setCombinedCost(startNode.estimatedCostToGoal);
         BinaryHeapOpenSet openSet = new BinaryHeapOpenSet();
         openSet.insert(startNode);
         double[] bestHeuristicSoFar = new double[COEFFICIENTS.length];//keep track of the best node by the metric of (estimatedCostToGoal + cost / COEFFICIENTS[i])
@@ -142,7 +142,7 @@ public final class AStarPathFinder extends AbstractNodeCostSearch {
                 if (neighbor.cost - tentativeCost > minimumImprovement) {
                     neighbor.previous = currentNode;
                     neighbor.cost = tentativeCost;
-                    neighbor.combinedCost = tentativeCost + neighbor.estimatedCostToGoal;
+                    neighbor.setCombinedCost(tentativeCost + neighbor.estimatedCostToGoal);
                     if (neighbor.isOpen()) {
                         openSet.update(neighbor);
                     } else {
