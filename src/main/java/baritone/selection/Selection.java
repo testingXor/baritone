@@ -70,7 +70,13 @@ public class Selection implements ISelection {
         return aabb;
     }
 
-    @Override
+    
+	/* ********OpenRefactory Warning********
+	 The class 'Selection' only overrides 'hashCode' method.
+	 iCR suggests that both 'equals' and 'hashCode' should be overridden.
+	*/
+
+	@Override
     public int hashCode() {
         return pos1.hashCode() ^ pos2.hashCode();
     }
