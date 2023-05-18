@@ -67,7 +67,40 @@ public class Paginator<E> implements Helper {
         int offset = (page - 1) * pageSize;
         for (int i = offset; i < offset + pageSize; i++) {
             if (i < entries.size()) {
-                logDirect(transform.apply(entries.get(i)));
+                
+				/* ********OpenRefactory Warning********
+				 Possible null pointer dereference!
+				 Path: 
+					File: HelpCommand.java, Line: 51
+						Paginator.paginate(args,new Paginator<>(this.baritone.getCommandManager().getRegistry().descendingStream().filter(command -> !command.hiddenFromHelp()).collect(Collectors.toList())),() -> logDirect("All Baritone commands (clickable):"),command -> {
+						  String names=String.join("/",command.getNames());
+						  String name=command.getNames().get(0);
+						  ITextComponent shortDescComponent=new TextComponentString(" - " + command.getShortDesc());
+						  shortDescComponent.getStyle().setColor(TextFormatting.DARK_GRAY);
+						  ITextComponent namesComponent=new TextComponentString(names);
+						  namesComponent.getStyle().setColor(TextFormatting.WHITE);
+						  ITextComponent hoverComponent=new TextComponentString("");
+						  hoverComponent.getStyle().setColor(TextFormatting.GRAY);
+						  hoverComponent.appendSibling(namesComponent);
+						  hoverComponent.appendText("\n" + command.getShortDesc());
+						  hoverComponent.appendText("\n\nClick to view full help");
+						  String clickCommand=FORCE_COMMAND_PREFIX + String.format("%s %s",label,command.getNames().get(0));
+						  ITextComponent component=new TextComponentString(name);
+						  component.getStyle().setColor(TextFormatting.GRAY);
+						  component.appendSibling(shortDescComponent);
+						  component.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,hoverComponent)).setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,clickCommand));
+						  return component;
+						}
+						,FORCE_COMMAND_PREFIX + label);
+						 Information is passed through the method call via new Paginator<>(this.baritone.getCommandManager().getRegistry().descendingStream().filter(command -> !command.hiddenFromHelp()).collect(Collectors.toList())) to the formal param pagi of the method. This later results into a null pointer dereference. inside field entries ( from class Paginator).
+					File: Paginator.java, Line: 138
+						pagi.display(transform,commandPrefix);
+						 Information about field entries (from class Paginator) is passed through the method call. This later results into a null pointer dereference
+					File: Paginator.java, Line: 70
+						logDirect(transform.apply(entries.get(i)));
+						entries is referenced in method invocation.
+				*/
+				logDirect(transform.apply(entries.get(i)));
             } else {
                 logDirect("--", TextFormatting.DARK_GRAY);
             }
