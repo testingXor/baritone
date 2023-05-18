@@ -767,7 +767,16 @@ public final class BuilderProcess extends BaritoneProcessHelper implements IBuil
         boolean allowSameLevel = ctx.world().getBlockState(pos.up()).getBlock() != Blocks.AIR;
         IBlockState current = ctx.world().getBlockState(pos);
         for (EnumFacing facing : Movement.HORIZONTALS_BUT_ALSO_DOWN_____SO_EVERY_DIRECTION_EXCEPT_UP) {
-            //noinspection ConstantConditions
+            
+			/* ********OpenRefactory Warning********
+			 Possible null pointer dereference!
+			 Path: 
+				File: BuilderProcess.java, Line: 771
+					bcc.getSchematic(pos.getX(),pos.getY(),pos.getZ(),current).getBlock()
+					Method getSchematic may return null and is referenced in method invocation.
+					The expression is enclosed inside an If statement.
+			*/
+			//noinspection ConstantConditions
             if (MovementHelper.canPlaceAgainst(ctx, pos.offset(facing)) && ctx.world().mayPlace(bcc.getSchematic(pos.getX(), pos.getY(), pos.getZ(), current).getBlock(), pos, false, facing, null)) {
                 return new GoalAdjacent(pos, pos.offset(facing), allowSameLevel);
             }
