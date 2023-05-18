@@ -249,7 +249,7 @@ public class ProguardTask extends BaritoneGradleTask {
         // Create the directory if it doesn't already exist
         Path tempLibraries = getTemporaryFile(TEMP_LIBRARY_DIR);
         if (!Files.exists(tempLibraries)) {
-            Files.createDirectory(tempLibraries);
+            Files.createDirectories(tempLibraries);
         }
 
         // Iterate the required libraries to copy them to tempLibraries
