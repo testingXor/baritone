@@ -61,7 +61,7 @@ public final class PathNode {
     /**
      * Where is this node in the array flattenization of the binary heap? Needed for decrease-key operations.
      */
-    public int heapPosition;
+    private int heapPosition;
 
     public PathNode(int x, int y, int z, Goal goal) {
         this.previous = null;
@@ -104,4 +104,12 @@ public final class PathNode {
 
         return x == other.x && y == other.y && z == other.z;
     }
+
+	public int getHeapPosition() {
+		return heapPosition;
+	}
+
+	public void setHeapPosition(int heapPosition) {
+		this.heapPosition = heapPosition;
+	}
 }
