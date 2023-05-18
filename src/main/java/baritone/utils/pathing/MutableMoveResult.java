@@ -27,7 +27,7 @@ import baritone.api.pathing.movement.ActionCosts;
 public final class MutableMoveResult {
 
     public int x;
-    public int y;
+    private int y;
     public int z;
     public double cost;
 
@@ -41,4 +41,12 @@ public final class MutableMoveResult {
         z = 0;
         cost = ActionCosts.COST_INF;
     }
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
 }

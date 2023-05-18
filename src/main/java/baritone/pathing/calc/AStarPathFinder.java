@@ -129,15 +129,15 @@ public final class AStarPathFinder extends AbstractNodeCostSearch {
                 if (!moves.dynamicXZ && (res.x != newX || res.z != newZ)) {
                     throw new IllegalStateException(moves + " " + res.x + " " + newX + " " + res.z + " " + newZ);
                 }
-                if (!moves.dynamicY && res.y != currentNode.y + moves.yOffset) {
+                if (!moves.dynamicY && res.getY() != currentNode.y + moves.yOffset) {
                     throw new IllegalStateException(moves + " " + res.y + " " + (currentNode.y + moves.yOffset));
                 }
-                long hashCode = BetterBlockPos.longHash(res.x, res.y, res.z);
+                long hashCode = BetterBlockPos.longHash(res.x, res.getY(), res.z);
                 if (isFavoring) {
                     // see issue #18
                     actionCost *= favoring.calculate(hashCode);
                 }
-                PathNode neighbor = getNodeAtPosition(res.x, res.y, res.z, hashCode);
+                PathNode neighbor = getNodeAtPosition(res.x, res.getY(), res.z, hashCode);
                 double tentativeCost = currentNode.cost + actionCost;
                 if (neighbor.cost - tentativeCost > minimumImprovement) {
                     neighbor.previous = currentNode;

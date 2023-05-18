@@ -58,7 +58,7 @@ public class MovementDescend extends Movement {
     public double calculateCost(CalculationContext context) {
         MutableMoveResult result = new MutableMoveResult();
         cost(context, src.x, src.y, src.z, dest.x, dest.z, result);
-        if (result.y != dest.y) {
+        if (result.getY() != dest.y) {
             return COST_INF; // doesn't apply to us, this position is a fall not a descend
         }
         return result.cost;
@@ -118,7 +118,7 @@ public class MovementDescend extends Movement {
         }
         totalCost += walk + Math.max(FALL_N_BLOCKS_COST[1], CENTER_AFTER_FALL_COST);
         res.x = destX;
-        res.y = y - 1;
+        res.setY(y - 1);
         res.z = destZ;
         res.cost = totalCost;
     }
@@ -161,7 +161,7 @@ public class MovementDescend extends Movement {
                 }
                 // found a fall into water
                 res.x = destX;
-                res.y = newY;
+                res.setY(newY);
                 res.z = destZ;
                 res.cost = tentativeCost;// TODO incorporate water swim up cost?
                 return false;
@@ -186,14 +186,14 @@ public class MovementDescend extends Movement {
             if (unprotectedFallHeight <= context.maxFallHeightNoWater + 1) {
                 // fallHeight = 4 means onto.up() is 3 blocks down, which is the max
                 res.x = destX;
-                res.y = newY + 1;
+                res.setY(newY + 1);
                 res.z = destZ;
                 res.cost = tentativeCost;
                 return false;
             }
             if (context.hasWaterBucket && unprotectedFallHeight <= context.maxFallHeightBucket + 1) {
                 res.x = destX;
-                res.y = newY + 1;// this is the block we're falling onto, so dest is +1
+                res.setY(newY + 1);// this is the block we're falling onto, so dest is +1
                 res.z = destZ;
                 res.cost = tentativeCost + context.placeBucketCost();
                 return true;

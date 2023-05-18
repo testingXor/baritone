@@ -90,7 +90,7 @@ public class MovementDiagonal extends Movement {
     public double calculateCost(CalculationContext context) {
         MutableMoveResult result = new MutableMoveResult();
         cost(context, src.x, src.y, src.z, dest.x, dest.z, result);
-        if (result.y != dest.y) {
+        if (result.getY() != dest.y) {
             return COST_INF; // doesn't apply to us, this position is incorrect
         }
         return result.cost;
@@ -187,7 +187,7 @@ public class MovementDiagonal extends Movement {
             res.cost = multiplier * SQRT_2 + JUMP_ONE_BLOCK_COST;
             res.x = destX;
             res.z = destZ;
-            res.y = y + 1;
+            res.setY(y + 1);
             return;
         }
         double optionA = MovementHelper.getMiningDurationTicks(context, x, y, destZ, pb0, false);
@@ -235,9 +235,9 @@ public class MovementDiagonal extends Movement {
         res.cost = multiplier * SQRT_2;
         if (descend) {
             res.cost += Math.max(FALL_N_BLOCKS_COST[1], CENTER_AFTER_FALL_COST);
-            res.y = y - 1;
+            res.setY(y - 1);
         } else {
-            res.y = y;
+            res.setY(y);
         }
         res.x = destX;
         res.z = destZ;

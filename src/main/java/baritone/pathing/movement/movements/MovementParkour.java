@@ -56,7 +56,7 @@ public class MovementParkour extends Movement {
         MutableMoveResult res = new MutableMoveResult();
         cost(context, src.x, src.y, src.z, direction, res);
         int dist = Math.abs(res.x - src.x) + Math.abs(res.z - src.z);
-        return new MovementParkour(context.getBaritone(), src, dist, direction, res.y > src.y);
+        return new MovementParkour(context.getBaritone(), src, dist, direction, res.getY() > src.y);
     }
 
     public static void cost(CalculationContext context, int x, int y, int z, EnumFacing dir, MutableMoveResult res) {
@@ -124,7 +124,7 @@ public class MovementParkour extends Movement {
             if (!MovementHelper.fullyPassable(context.bsi.access, context.bsi.isPassableBlockPos.setPos(destX, y, destZ), destInto)) {
                 if (i <= 3 && context.allowParkourAscend && context.canSprint && MovementHelper.canWalkOn(context, destX, y, destZ, destInto) && checkOvershootSafety(context.bsi, destX + xDiff, y + 1, destZ + zDiff)) {
                     res.x = destX;
-                    res.y = y + 1;
+                    res.setY(y + 1);
                     res.z = destZ;
                     res.cost = i * SPRINT_ONE_BLOCK_COST + context.jumpPenalty;
                     return;
@@ -138,7 +138,7 @@ public class MovementParkour extends Movement {
             if (landingOn.getBlock() != Blocks.FARMLAND && MovementHelper.canWalkOn(context, destX, y - 1, destZ, landingOn)) {
                 if (checkOvershootSafety(context.bsi, destX + xDiff, y, destZ + zDiff)) {
                     res.x = destX;
-                    res.y = y;
+                    res.setY(y);
                     res.z = destZ;
                     res.cost = costFromJumpDistance(i) + context.jumpPenalty;
                     return;
@@ -181,7 +181,7 @@ public class MovementParkour extends Movement {
                 }
                 if (MovementHelper.canPlaceAgainst(context.bsi, againstX, againstY, againstZ)) {
                     res.x = destX;
-                    res.y = y;
+                    res.setY(y);
                     res.z = destZ;
                     res.cost = costFromJumpDistance(i) + placeCost + context.jumpPenalty;
                     return;
@@ -213,7 +213,7 @@ public class MovementParkour extends Movement {
     public double calculateCost(CalculationContext context) {
         MutableMoveResult res = new MutableMoveResult();
         cost(context, src.x, src.y, src.z, direction, res);
-        if (res.x != dest.x || res.y != dest.y || res.z != dest.z) {
+        if (res.x != dest.x || res.getY() != dest.y || res.z != dest.z) {
             return COST_INF;
         }
         return res.cost;
