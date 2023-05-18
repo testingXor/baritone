@@ -1005,7 +1005,21 @@ public final class BuilderProcess extends BaritoneProcessHelper implements IBuil
                 return COST_INF;
             }
             IBlockState sch = getSchematic(x, y, z, current);
-            if (sch != null && !Baritone.settings().buildSkipBlocks.value.contains(sch.getBlock())) {
+            /* ********OpenRefactory Warning********
+			 Possible null pointer dereference!
+			 Path: 
+				File: BuilderProcess.java, Line: 993
+					IBlockState sch=getSchematic(x,y,z,current);
+			
+				File: BuilderProcess.java, Line: 994
+					sch != null
+					sch is in a test expression.
+				File: BuilderProcess.java, Line: 994
+					sch.getBlock()
+					sch is referenced in method invocation.
+					The expression is enclosed inside an If statement.
+			*/
+			if (sch != null && !Baritone.settings().buildSkipBlocks.value.contains(sch.getBlock())) {
                 if (sch.getBlock() == Blocks.AIR) {
                     // it should be air
                     // regardless of current contents, we can break it
