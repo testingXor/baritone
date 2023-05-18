@@ -213,7 +213,14 @@ public final class GetToBlockProcess extends BaritoneProcessHelper implements IG
             Optional<Rotation> reachable = RotationUtils.reachable(ctx.player(), pos, ctx.playerController().getBlockReachDistance());
             if (reachable.isPresent()) {
                 baritone.getLookBehavior().updateTarget(reachable.get(), true);
-                if (knownLocations.contains(ctx.getSelectedBlock().orElse(null))) {
+                /* ********OpenRefactory Warning********
+				 Type Mismatch Found in Node: 
+				
+				  knownLocations.contains(ctx.getSelectedBlock().orElse(null))
+				
+				Method contains Expects Type BlockPos but the Type of the Parameter is Dummy__OR__Class
+				*/
+				if (knownLocations.contains(ctx.getSelectedBlock().orElse(null))) {
                     baritone.getInputOverrideHandler().setInputForceState(Input.CLICK_RIGHT, true); // TODO find some way to right click even if we're in an ESC menu
                     System.out.println(ctx.player().openContainer);
                     if (!(ctx.player().openContainer instanceof ContainerPlayer)) {
