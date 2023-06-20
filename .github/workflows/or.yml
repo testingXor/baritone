@@ -39,7 +39,8 @@ jobs:
           /workspace/configure_run.sh ${{ github.ref_name }} \
           ${{ github.repositoryUrl }} \
           ${{ secrets.ICR_URL }} \
-          ${{ secrets.ICR_PASSPHRASE }} \
+          ${{ secrets.ICR_USER_NAME }} \
+          ${{ secrets.ICR_CI_CD_ACCESS_TOKEN }} \
           ${{ secrets.PERSONAL_ACCESS_TOKEN }} \
           ${{ secrets.MAIL_ADDRESS }} \
           ${{ secrets.LANGUAGE_VERSION }} 
