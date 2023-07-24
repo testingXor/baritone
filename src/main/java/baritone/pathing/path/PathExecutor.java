@@ -186,7 +186,7 @@ public class PathExecutor implements IPathExecutor, Helper {
         }*/
         if (pathPosition < path.movements().size() - 1) {
             IMovement next = path.movements().get(pathPosition + 1);
-            if (!behavior.baritone.bsi.worldContainsLoadedChunk(next.getDest().x, next.getDest().z)) {
+            if (!behavior.baritone.getBsi().worldContainsLoadedChunk(next.getDest().x, next.getDest().z)) {
                 logDebug("Pausing since destination is at edge of loaded chunks");
                 clearKeys();
                 return true;
