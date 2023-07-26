@@ -279,7 +279,11 @@ public class MovementDiagonal extends Movement {
 
     @Override
     protected boolean prepared(MovementState state) {
-        return true;
+        
+		/* ********OpenRefactory Warning********
+		 Overridden method should invoke super method
+		*/
+		return true;
     }
 
     @Override
