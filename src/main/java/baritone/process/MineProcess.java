@@ -343,7 +343,21 @@ public final class MineProcess extends BaritoneProcessHelper implements IMinePro
         for (BlockOptionalMeta bom : filter.blocks()) {
             Block block = bom.getBlock();
             if (CachedChunk.BLOCKS_TO_KEEP_TRACK_OF.contains(block)) {
-                BetterBlockPos pf = ctx.baritone.getPlayerContext().playerFeet();
+                
+				/* ********OpenRefactory Warning********
+				 Possible null pointer dereference!
+				 Path: 
+					File: GetToBlockProcess.java, Line: 61
+						rescan(new ArrayList<>(),new GetToBlockCalculationContext(false));
+						 Information about field playerContext (from class Baritone) is passed through the method call. This later results into a null pointer dereference
+					File: GetToBlockProcess.java, Line: 196
+						List<BlockPos> positions=MineProcess.searchWorld(context,new BlockOptionalMetaLookup(gettingTo),64,known,blacklist,Collections.emptyList());
+						 Information about field playerContext (from class Baritone) is passed through the method call. This later results into a null pointer dereference
+					File: MineProcess.java, Line: 346
+						BetterBlockPos pf=ctx.baritone.getPlayerContext().playerFeet();
+						Method getPlayerContext may return null and is referenced in method invocation.
+				*/
+				BetterBlockPos pf = ctx.baritone.getPlayerContext().playerFeet();
 
                 // maxRegionDistanceSq 2 means adjacent directly or adjacent diagonally; nothing further than that
                 locs.addAll(ctx.worldData.getCachedWorld().getLocationsOf(
