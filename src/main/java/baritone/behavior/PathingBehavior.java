@@ -339,7 +339,19 @@ public final class PathingBehavior extends Behavior implements IPathingBehavior,
     }
 
     public void softCancelIfSafe() {
-        synchronized (pathPlanLock) {
+        
+		/* ********OpenRefactory Warning********
+		 Possible null pointer dereference!
+		 Path: 
+			File: PathingControlManager.java, Line: 149
+				p.softCancelIfSafe();
+				 Information about field pathPlanLock (from class PathingBehavior) is passed through the method call. This later results into a null pointer dereference
+			File: PathingBehavior.java, Line: 342
+				pathPlanLock
+				pathPlanLock is used for synchronization.
+				The expression is enclosed inside a Synchronized statement.
+		*/
+		synchronized (pathPlanLock) {
             getInProgress().ifPresent(AbstractNodeCostSearch::cancel); // only cancel ours
             if (!isSafeToCancel()) {
                 return;
