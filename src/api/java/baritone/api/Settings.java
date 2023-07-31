@@ -1345,7 +1345,7 @@ public final class Settings {
 
         try {
             for (Field field : temp) {
-                if (field.getType().equals(Setting.class)) {
+                if (field.getType() == Setting.class) {
                     Setting<?> setting = (Setting<?>) field.get(this);
                     String name = field.getName();
                     setting.name = name;
