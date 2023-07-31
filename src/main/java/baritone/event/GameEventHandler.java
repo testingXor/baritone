@@ -49,12 +49,12 @@ public final class GameEventHandler implements IEventBus, Helper {
     public final void onTick(TickEvent event) {
         if (event.getType() == TickEvent.Type.IN) {
             try {
-                baritone.bsi = new BlockStateInterface(baritone.getPlayerContext(), true);
+                baritone.setBsi(new BlockStateInterface(baritone.getPlayerContext(), true));
             } catch (Exception ex) {
                 baritone.bsi = null;
             }
         } else {
-            baritone.bsi = null;
+            baritone.setBsi(null);
         }
         listeners.forEach(l -> l.onTick(event));
     }
