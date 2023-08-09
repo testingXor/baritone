@@ -51,7 +51,7 @@ public class CreateDistTask extends BaritoneGradleTask {
         // NIO will not automatically create directories
         Path dir = getRelativeFile("dist/");
         if (!Files.exists(dir)) {
-            Files.createDirectory(dir);
+            Files.createDirectories(dir);
         }
 
         // Copy build jars to dist/
