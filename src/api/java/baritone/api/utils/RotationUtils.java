@@ -162,7 +162,18 @@ public final class RotationUtils {
 
     public static Optional<Rotation> reachable(EntityPlayerSP entity, BlockPos pos, double blockReachDistance, boolean wouldSneak) {
         IBaritone baritone = BaritoneAPI.getProvider().getBaritoneForPlayer(entity);
-        if (baritone.getPlayerContext().isLookingAt(pos)) {
+        /* ********OpenRefactory Warning********
+		 Possible null pointer dereference!
+		 Path: 
+			File: RotationUtils.java, Line: 164
+				IBaritone baritone=BaritoneAPI.getProvider().getBaritoneForPlayer(entity);
+				Variable baritone is initialized null.
+			File: RotationUtils.java, Line: 165
+				baritone.getPlayerContext()
+				baritone is referenced in method invocation.
+				The expression is enclosed inside an If statement.
+		*/
+		if (baritone.getPlayerContext().isLookingAt(pos)) {
             /*
              * why add 0.0001?
              * to indicate that we actually have a desired pitch
