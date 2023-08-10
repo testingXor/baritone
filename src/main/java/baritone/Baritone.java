@@ -88,7 +88,7 @@ public class Baritone implements IBaritone {
     private IPlayerContext playerContext;
     private WorldProvider worldProvider;
 
-    public BlockStateInterface bsi;
+    private BlockStateInterface bsi;
 
     Baritone() {
         this.gameEventHandler = new GameEventHandler(this);
@@ -229,4 +229,12 @@ public class Baritone implements IBaritone {
     public static Executor getExecutor() {
         return threadPool;
     }
+
+	public BlockStateInterface getBsi() {
+		return bsi;
+	}
+
+	public void setBsi(BlockStateInterface bsi) {
+		this.bsi = bsi;
+	}
 }
