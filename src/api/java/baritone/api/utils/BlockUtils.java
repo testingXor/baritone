@@ -48,7 +48,34 @@ public class BlockUtils {
     }
 
     public static Block stringToBlockNullable(String name) {
-        // do NOT just replace this with a computeWithAbsent, it isn't thread safe
+        
+		/* ********OpenRefactory Warning********
+		 Possible null pointer dereference!
+		 Path: 
+			File: MovementParkour.java, Line: 149
+				MovementHelper.fullyPassable(context,destX,y + 3,destZ)
+				Information about static field resourceCache (from class BlockUtils) is passed through the method call. This later results into a null pointer dereference.
+				The expression is enclosed inside an If statement.
+			File: MovementHelper.java, Line: 216
+				return fullyPassable(context.bsi.access,context.bsi.isPassableBlockPos.setPos(x,y,z),context.bsi.get0(x,y,z));
+				Information about static field resourceCache (from class BlockUtils) is passed through the method call. This later results into a null pointer dereference.
+			File: BlockStateInterface.java, Line: 142
+				IBlockState type=cached.getBlock(x & 511,y,z & 511);
+				Information about static field resourceCache (from class BlockUtils) is passed through the method call. This later results into a null pointer dereference.
+			File: CachedRegion.java, Line: 81
+				return chunk.getBlock(x & 15,y,z & 15,dimension);
+				Information about static field resourceCache (from class BlockUtils) is passed through the method call. This later results into a null pointer dereference.
+			File: CachedChunk.java, Line: 181
+				return BlockUtils.stringToBlockRequired(str).getDefaultState();
+				Information about static field resourceCache (from class BlockUtils) is passed through the method call. This later results into a null pointer dereference.
+			File: BlockUtils.java, Line: 41
+				Block block=stringToBlockNullable(name);
+				Information about static field resourceCache (from class BlockUtils) is passed through the method call. This later results into a null pointer dereference.
+			File: BlockUtils.java, Line: 52
+				Block block=resourceCache.get(name);
+				resourceCache is referenced in method invocation.
+		*/
+		// do NOT just replace this with a computeWithAbsent, it isn't thread safe
         Block block = resourceCache.get(name); // map is never mutated in place so this is safe
         if (block != null) {
             return block;
